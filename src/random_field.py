@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
 
 
 class RandomField():
@@ -34,6 +36,12 @@ class RandomField():
 
     def generate_correlated_random_variables(self):
         pass
+
+    def visualise(self, x, K):
+        fig = plt.figure(figsize=(6, 6))
+        ax = fig.add_subplot(111)
+        ax.scatter(x[:, 0], x[:, 1], s=30, c=K, marker='o', cmap=cm.jet)
+        plt.axis('scaled')
 
 
 class KLexpansion(RandomField):
@@ -117,9 +125,8 @@ class MatrixDecomposition(RandomField):
 
         Returns
         -------
-        
+
         TODO: rename
 
         """
         return self.distribution.build(self.generate_sample())
-

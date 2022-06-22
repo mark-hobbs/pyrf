@@ -16,8 +16,13 @@ class CovarianceFunction():
     -----
     """
 
+    mm_to_m = 1e-3  # class constants
+
     def __init__(self):
         pass
+
+    def visualise(self, C):
+        plt.imshow(C)
 
 
 class JCSS(CovarianceFunction):
@@ -36,8 +41,26 @@ class JCSS(CovarianceFunction):
     """
 
     def __init__(self, x, lc, rho):
+        """
+        Initialise an instance of the JCSS covariance function class
+
+        Parameters
+        ----------
+        x : ndarray
+            Mesh
+        
+        lc : float
+            Correlation length (or length scale)
+
+        rho : float
+            Threshold value for the correlation between two points in space
+
+        Returns
+        -------
+
+        """
         self.x = x
-        self.lc = lc
+        self.lc = lc * self.mm_to_m
         self.rho = rho
 
     def build_correlation_matrix(self):
@@ -52,9 +75,6 @@ class JCSS(CovarianceFunction):
                 C[j, i] = C[i, j]
 
         return C
-
-    def visualise(self, C):
-        plt.imshow(C)
 
 
 class Exponential(CovarianceFunction):
