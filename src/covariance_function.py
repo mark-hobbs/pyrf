@@ -132,5 +132,33 @@ class Gaussian(CovarianceFunction):
     -----
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, lc, sigma=1):
+        """
+        Initialise an instance of the Gaussian covariance function class
+
+        Parameters
+        ----------
+        lc : float
+            Correlation length (or length scale)
+
+        sigma : float
+            Marginal standard deviation (optional)
+
+        Returns
+        -------
+
+        """
+        self.lc = lc * self.mm_to_m
+        self.sigma = sigma
+
+    def build_correlation_matrix(self, x):
+
+        C = np.zeros([len(x), len(x)])
+
+        for i in range(len(x)):
+            for j in range(i + 1):
+                d = np.linalg.norm(x[i, :] - x[j, :])
+                C[i, j] = self.sigma * np.exp(-(d / self.lc)**2)
+                C[j, i] = C[i, j]
+
+        return C
