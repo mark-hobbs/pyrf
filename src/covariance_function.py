@@ -40,15 +40,12 @@ class JCSS(CovarianceFunction):
     -----
     """
 
-    def __init__(self, x, lc, rho):
+    def __init__(self, lc, rho):
         """
         Initialise an instance of the JCSS covariance function class
 
         Parameters
         ----------
-        x : ndarray
-            Mesh
-        
         lc : float
             Correlation length (or length scale)
 
@@ -59,19 +56,17 @@ class JCSS(CovarianceFunction):
         -------
 
         """
-        self.x = x
         self.lc = lc * self.mm_to_m
         self.rho = rho
 
-    def build_correlation_matrix(self):
+    def build_correlation_matrix(self, x):
 
-        C = np.zeros([len(self.x), len(self.x)])
+        C = np.zeros([len(x), len(x)])
 
-        for i in range(len(self.x)):
+        for i in range(len(x)):
             for j in range(i + 1):
-                C[i, j] = (self.rho + (1 - self.rho)
-                           * np.exp(-np.linalg.norm(self.x[i, :] - self.x[j, :])
-                                    / self.lc))
+                d = np.linalg.norm(x[i, :] - x[j, :])
+                C[i, j] = self.rho + (1 - self.rho) * np.exp(-d / self.lc)
                 C[j, i] = C[i, j]
 
         return C
@@ -91,8 +86,36 @@ class Exponential(CovarianceFunction):
     -----
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, lc, sigma=1):
+        """
+        Initialise an instance of the exponential covariance function class
+
+        Parameters
+        ----------
+        lc : float
+            Correlation length (or length scale)
+
+        sigma : float
+            Marginal standard deviation (optional)
+
+        Returns
+        -------
+
+        """
+        self.lc = lc * self.mm_to_m
+        self.sigma = sigma
+
+    def build_correlation_matrix(self, x):
+
+        C = np.zeros([len(x), len(x)])
+
+        for i in range(len(x)):
+            for j in range(i + 1):
+                d = np.linalg.norm(x[i, :] - x[j, :])
+                C[i, j] = self.sigma * np.exp(-d / self.lc)
+                C[j, i] = C[i, j]
+
+        return C
 
 
 class Gaussian(CovarianceFunction):
