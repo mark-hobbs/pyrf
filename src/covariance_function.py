@@ -162,3 +162,39 @@ class Gaussian(CovarianceFunction):
                 C[j, i] = C[i, j]
 
         return C
+
+class Matern(CovarianceFunction):
+    """
+    Matérn covariance function class
+
+    Attributes
+    ----------
+
+    Methods
+    -------
+
+    Notes
+    -----
+    """
+
+    def __init__(self, lc, sigma=1):
+        """
+        Initialise an instance of the Matern covariance function class
+
+        Parameters
+        ----------
+        lc : float
+            Correlation length (or length scale)
+
+        sigma : float
+            Marginal standard deviation (optional)
+
+        Returns
+        -------
+
+        """
+        self.lc = lc * self.mm_to_m
+        self.sigma = sigma
+
+    def build_correlation_matrix(self, x):
+        pass
