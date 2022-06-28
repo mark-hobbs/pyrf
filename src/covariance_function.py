@@ -1,5 +1,7 @@
+
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.special import gamma, kv
 
 
 class CovarianceFunction():
@@ -163,6 +165,7 @@ class Gaussian(CovarianceFunction):
 
         return C
 
+
 class Matern(CovarianceFunction):
     """
     Matérn covariance function class
@@ -177,7 +180,7 @@ class Matern(CovarianceFunction):
     -----
     """
 
-    def __init__(self, lc, sigma=1):
+    def __init__(self, lc, sigma=1, nu=1/2):
         """
         Initialise an instance of the Matern covariance function class
 
@@ -189,12 +192,39 @@ class Matern(CovarianceFunction):
         sigma : float
             Marginal standard deviation (optional)
 
+        nu : float
+            Shape parameter (non-negative parameter). Nu is generally taken to
+            be 1/2, 3/2 or 5/2
+
         Returns
         -------
+
+        Notes
+        -----
+        gamma - gamma function
+        kv - modified Bessel function of the second kind
 
         """
         self.lc = lc * self.mm_to_m
         self.sigma = sigma
+        self.nu = nu
 
     def build_correlation_matrix(self, x):
-        pass
+
+        C = np.zeros([len(x), len(x)])
+
+        for i in range(len(x)):
+            for j in range(i + 1):
+                d = np.linalg.norm(x[i, :] - x[j, :])
+                if d == 0:
+                    C[i, j] = self.sigma
+                    C[j, i] = C[i, j]
+                else:
+                    alpha = np.sqrt(2 * self.nu) * (d / self.lc)
+                    C[i, j] = (self.sigma**2
+                                * (2**(1 - self.nu)) / gamma(self.nu)
+                                * alpha**self.nu
+                                * kv(self.nu, alpha))
+                    C[j, i] = C[i, j]
+
+        return C

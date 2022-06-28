@@ -77,7 +77,8 @@ class MatrixDecomposition(RandomField):
     def __init__(self, C, probability_distribution):
         self.C = C
         self.distribution = probability_distribution
-        self.eigenvalues, self.eigenvectors = self.decompose_covariance_matrix()
+        (self.eigenvalues,
+         self.eigenvectors) = self.decompose_covariance_matrix()
         self.L = self.compute_lower_triangular_matrix()
         self.xi = self.generate_normally_distributed_variables(self.C)
 
