@@ -69,6 +69,7 @@ class MatrixDecomposition(RandomField):
 
     Methods
     -------
+    build_distribution
 
     Notes
     -----

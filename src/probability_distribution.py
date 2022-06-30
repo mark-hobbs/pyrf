@@ -19,6 +19,12 @@ class ProbabilityDistribution():
     def __init__(self):
         pass
 
+    @staticmethod
+    def print_distribution_properties(K):
+        # TODO: why does np.mean(K) return a complex number?
+        print('{} : {:.2f}'.format('Mean', np.mean(np.real(K))))
+        print('{} : {:.2f}'.format('Standard deviation', np.std(K)))
+
 
 class Gaussian(ProbabilityDistribution):
 
@@ -55,11 +61,18 @@ class LogNormal(ProbabilityDistribution):
         Parameters
         ----------
         m : float
+            Mean of a lognormally distributed variable Y
 
         v : float
+            Variance of a lognormally distributed variable Y
 
         Returns
         -------
+        mu : float
+            Mean of log(Y)
+
+        sigma : float
+            Standard deviation of log(Y)
 
         """
         self.mu = np.log(m**2 / np.sqrt(v + m**2))
