@@ -37,10 +37,14 @@ class RandomField():
     def generate_correlated_random_variables(self):
         pass
 
-    def visualise(self, x, K):
+    def visualise(self, x, K, sz=10):
+        """
+        Visualise the generated random field
+        """
         fig = plt.figure(figsize=(6, 6))
         ax = fig.add_subplot(111)
-        ax.scatter(x[:, 0], x[:, 1], s=30, c=K, marker='o', cmap=cm.jet)
+        ax.scatter(x[:, 0], x[:, 1], s=sz, c=K, marker='o', cmap=cm.jet)
+        ax.axis('off')
         plt.axis('scaled')
 
 
