@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-
+import scipy.linalg
 
 class RandomField():
     """
@@ -91,8 +91,8 @@ class MatrixDecomposition(RandomField):
         """
         Decompose the covariance matrix into its eigenvalues and eigenvectors
         """
-        eigenvalues, eigenvectors = np.linalg.eig(self.C)
-        return eigenvalues, eigenvectors
+        eigenvalues, eigenvectors = scipy.linalg.eig(self.C)
+        return eigenvalues.real, eigenvectors.real
 
     def compute_lower_triangular_matrix(self):
         """

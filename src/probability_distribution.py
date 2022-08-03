@@ -1,5 +1,6 @@
 
 import numpy as np
+from scipy import stats
 
 
 class ProbabilityDistribution():
@@ -83,4 +84,25 @@ class LogNormal(ProbabilityDistribution):
 
 
 class Weibull(ProbabilityDistribution):
-    pass
+
+    def __init__(self, mu, sigma):
+        """
+        Initialise an instance of the Weibull probability distribution class
+
+        Parameters
+        ----------
+        mu : float
+            Mean or expectation of the distribution
+
+        sigma : float
+            Standard deviation of the distribution
+
+        Returns
+        -------
+
+        """
+        self.mu = mu
+        self.sigma = sigma
+
+def build(self, K):
+    return self.mu + (K * self.sigma)

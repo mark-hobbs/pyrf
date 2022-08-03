@@ -160,7 +160,7 @@ class Gaussian(CovarianceFunction):
         for i in range(len(x)):
             for j in range(i + 1):
                 d = np.linalg.norm(x[i, :] - x[j, :])
-                C[i, j] = self.sigma * np.exp(-(d / self.lc)**2)
+                C[i, j] = self.sigma**2 * np.exp(-(d / self.lc)**2)
                 C[j, i] = C[i, j]
 
         return C
