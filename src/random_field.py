@@ -85,7 +85,6 @@ class MatrixDecomposition(RandomField):
         (self.eigenvalues,
          self.eigenvectors) = self.decompose_covariance_matrix()
         self.L = self.compute_lower_triangular_matrix()
-        self.xi = self.generate_normally_distributed_variables(self.C)
 
     def decompose_covariance_matrix(self):
         """
@@ -108,9 +107,10 @@ class MatrixDecomposition(RandomField):
         """
         return np.sqrt(np.absolute(self.eigenvalues)) * self.eigenvectors
 
-    def generate_sample(self):
+    def generate_sample_normal(self):
         """
-        Generate a single sample of the random field
+        Generates a single sample of the random field with a standard normal
+        distribution (mean 0 and variance 1)
 
         Parameters
         ----------
@@ -119,12 +119,15 @@ class MatrixDecomposition(RandomField):
         -------
         K : ndarray
             Sample of the random field
-        """
-        return np.matmul(self.L, self.xi)
 
-    def build_distribution(self):
         """
-        TODO: write description
+        return np.matmul(self.L,
+                         self.generate_normally_distributed_variables(self.C))
+
+    def generate_sample(self):
+        """
+        Generates a single sample of the random field with the user defined
+        distribution parameters (mean and standard deviation)
 
         Parameters
         ----------
@@ -132,7 +135,24 @@ class MatrixDecomposition(RandomField):
         Returns
         -------
 
-        TODO: rename
+        """
+        return self.distribution.build(self.generate_sample_normal())
+
+    def generate_samples(self, n_samples):
+        """
+        Generates a multiple samples of the random field with the user defined
+        distribution parameters (mean and standard deviation)
+
+        Parameters
+        ----------
+
+        Returns
+        -------
 
         """
-        return self.distribution.build(self.generate_sample())
+
+        samples = np.zeros([len(self.C), n_samples])
+        for i in range(n_samples):
+            sample = self.generate_sample()
+            samples[:, i] = sample
+        return samples

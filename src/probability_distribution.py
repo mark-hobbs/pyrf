@@ -104,5 +104,5 @@ class Weibull(ProbabilityDistribution):
         self.mu = mu
         self.sigma = sigma
 
-def build(self, K):
-    return self.mu + (K * self.sigma)
+    def build(self, K):
+        pass
