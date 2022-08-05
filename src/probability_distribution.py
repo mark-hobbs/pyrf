@@ -85,7 +85,7 @@ class LogNormal(ProbabilityDistribution):
 
 class Weibull(ProbabilityDistribution):
 
-    def __init__(self, mu, sigma):
+    def __init__(self, mu, sigma, shape):
         """
         Initialise an instance of the Weibull probability distribution class
 
@@ -97,12 +97,25 @@ class Weibull(ProbabilityDistribution):
         sigma : float
             Standard deviation of the distribution
 
+        shape : float
+            The Weibull shape parameter. In the field of materials science,
+            the shape parameter is more commonly known as the Weibull modulus. 
+            If shape = 1, the Weibull distribution reduces to an exponential
+            distribution.
+
         Returns
         -------
 
         """
         self.mu = mu
         self.sigma = sigma
+        self.shape = shape
 
     def build(self, K):
-        pass
+        """
+        Using Copula theory
+        """
+        rv_norm = stats.norm.cdf(self.mu + (K * self.sigma),
+                                 self.mu, self.sigma)
+        return stats.weibull_min.ppf(rv_norm, self.shape,
+                                     loc=0, scale=self.mu)

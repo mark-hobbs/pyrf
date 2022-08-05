@@ -140,7 +140,7 @@ class MatrixDecomposition(RandomField):
 
     def generate_samples(self, n_samples):
         """
-        Generates a multiple samples of the random field with the user defined
+        Generates multiple samples of the random field with the user defined
         distribution parameters (mean and standard deviation)
 
         Parameters
@@ -150,9 +150,7 @@ class MatrixDecomposition(RandomField):
         -------
 
         """
-
         samples = np.zeros([len(self.C), n_samples])
         for i in range(n_samples):
-            sample = self.generate_sample()
-            samples[:, i] = sample
+            samples[:, i] = self.generate_sample()
         return samples
