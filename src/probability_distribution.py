@@ -25,6 +25,8 @@ class ProbabilityDistribution():
         # TODO: why does np.mean(K) return a complex number?
         print('{} : {:.2f}'.format('Mean', np.mean(np.real(K))))
         print('{} : {:.2f}'.format('Standard deviation', np.std(K)))
+        print('{} : {:.2f}'.format('Coefficient of variation (%)',
+                                   (np.std(K)/np.mean(np.real(K))) * 100))
 
 
 class Gaussian(ProbabilityDistribution):
