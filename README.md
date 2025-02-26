@@ -1,2 +1,6 @@
-# RandomFields
-An examination of different methods for generating Gaussian random fields
+# pyrf
+
+A simple pure-Python package for generating spatially correlated random fields.
+
+## Getting started
+

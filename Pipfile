@@ -4,12 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-jupyterlab = "*"
-matplotlib = "*"
 numpy = "*"
 scipy = "*"
+matplotlib = "*"
 
 [dev-packages]
+jupyterlab = "*"
+black = "*"
+pyrf = {file = "."}
 
 [requires]
 python_version = "3.11"
