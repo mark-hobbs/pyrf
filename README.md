@@ -9,14 +9,14 @@ A simple pure-Python package for generating spatially correlated random fields.
 Development version from GitHub:
 
 ```bash
-$ pip install git+https://github.com/mark-hobbs/pypd.git
+$ pip install git+https://github.com/mark-hobbs/pyrf.git
 ```
 
 or for contributors using Pipenv:
 
 ```bash
-$ git clone https://github.com/mark-hobbs/pypd.git
-$ cd pypd/
+$ git clone https://github.com/mark-hobbs/pyrf.git
+$ cd pyrf/
 $ pipenv install --dev
 $ pipenv shell
 ```
