@@ -51,6 +51,7 @@ class KLExpansion(RandomField):
     """
     Karhunen-Loève expansion class for generating random fields
     """
+
     pass
 
 
@@ -92,7 +93,7 @@ class MatrixDecomposition(RandomField):
 
     def decompose_covariance_matrix(self):
         """
-        Compute eigenvalues and eigenvectors of the covariance matrix, 
+        Compute eigenvalues and eigenvectors of the covariance matrix,
         sorted in descending order
         """
         eigenvalues, eigenvectors = np.linalg.eigh(self.C)

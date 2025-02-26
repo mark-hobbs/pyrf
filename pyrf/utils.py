@@ -6,7 +6,7 @@ def build_mesh(dx, n_div_x, n_div_y):
     x = np.zeros([n_div_x * n_div_y, 2])
     counter = 0
 
-    for i_y in range(n_div_y):      # depth
+    for i_y in range(n_div_y):  # depth
         for i_x in range(n_div_x):  # length
             coord_x = dx * i_x
             coord_y = dx * i_y

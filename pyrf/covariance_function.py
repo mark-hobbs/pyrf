@@ -125,7 +125,7 @@ class Gaussian(CovarianceFunction):
         Construct the correlation matrix using the Gaussian model
         """
         d = distance_matrix(x, x)
-        C = self.sigma**2 * np.exp(-(d / self.lc) ** 2)
+        C = self.sigma**2 * np.exp(-((d / self.lc) ** 2))
         return C
 
 
