@@ -2,6 +2,8 @@
 
 A simple pure-Python package for generating spatially correlated random fields.
 
+![](docs/figs/random-field.png)
+
 ## Getting started
 
 Development version from GitHub:
