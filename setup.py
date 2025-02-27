@@ -10,7 +10,7 @@ setup(
         'matplotlib',],
     author='Mark Hobbs',
     author_email='markhobbs91@gmail.com',
-    description='A simple pure-Python package for generating spatially correlated random fields',
+    description='A lightweight Python package with minimal dependencies for generating spatially correlated random fields',
     url='https://github.com/mark-hobbs/pyrf',
     classifiers=[
         'Programming Language :: Python :: 3',
