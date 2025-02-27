@@ -1,9 +1,8 @@
-
 import numpy as np
 from scipy import stats
 
 
-class ProbabilityDistribution():
+class ProbabilityDistribution:
     """
     Probability distribution class
 
@@ -23,10 +22,13 @@ class ProbabilityDistribution():
     @staticmethod
     def print_distribution_properties(K):
         # TODO: why does np.mean(K) return a complex number?
-        print('{} : {:.2f}'.format('Mean', np.mean(np.real(K))))
-        print('{} : {:.2f}'.format('Standard deviation', np.std(K)))
-        print('{} : {:.2f}'.format('Coefficient of variation (%)',
-                                   (np.std(K)/np.mean(np.real(K))) * 100))
+        print("{} : {:.2f}".format("Mean", np.mean(np.real(K))))
+        print("{} : {:.2f}".format("Standard deviation", np.std(K)))
+        print(
+            "{} : {:.2f}".format(
+                "Coefficient of variation (%)", (np.std(K) / np.mean(np.real(K))) * 100
+            )
+        )
 
 
 class Gaussian(ProbabilityDistribution):
@@ -79,7 +81,7 @@ class LogNormal(ProbabilityDistribution):
 
         """
         self.mu = np.log(m**2 / np.sqrt(v + m**2))
-        self.sigma = np.sqrt(np.log((v/m**2) + 1))
+        self.sigma = np.sqrt(np.log((v / m**2) + 1))
 
     def build(self, K):
         return np.exp(self.mu + (K * self.sigma))
@@ -101,7 +103,7 @@ class Weibull(ProbabilityDistribution):
 
         shape : float
             The Weibull shape parameter. In the field of materials science,
-            the shape parameter is more commonly known as the Weibull modulus. 
+            the shape parameter is more commonly known as the Weibull modulus.
             If shape = 1, the Weibull distribution reduces to an exponential
             distribution.
 
@@ -117,7 +119,5 @@ class Weibull(ProbabilityDistribution):
         """
         Using Copula theory
         """
-        rv_norm = stats.norm.cdf(self.mu + (K * self.sigma),
-                                 self.mu, self.sigma)
-        return stats.weibull_min.ppf(rv_norm, self.shape,
-                                     loc=0, scale=self.mu)
+        rv_norm = stats.norm.cdf(self.mu + (K * self.sigma), self.mu, self.sigma)
+        return stats.weibull_min.ppf(rv_norm, self.shape, loc=0, scale=self.mu)
