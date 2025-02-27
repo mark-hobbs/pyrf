@@ -35,16 +35,17 @@ class RandomField:
         """
         return np.random.randn(size)
 
-    def visualise(self, x, K, sz=10):
+    def visualise(self, x, K, sz=10, filename=None):
         """
         Visualise the generated random field
         """
-        _, ax = plt.subplots(figsize=(6, 6))
+        _, ax = plt.subplots(figsize=(6, 6), constrained_layout=True)
         ax.scatter(x[:, 0], x[:, 1], s=sz, c=K, cmap=cm.jet)
+        ax.set_aspect("equal", "box")
         ax.axis("off")
-        ax.set_frame_on(False)
-        plt.tight_layout()
-        plt.axis("scaled")
+
+        if filename:
+            plt.savefig(filename, dpi=300, bbox_inches="tight", pad_inches=0, transparent=True)
 
 
 class KLExpansion(RandomField):
@@ -57,32 +58,32 @@ class KLExpansion(RandomField):
 
 class MatrixDecomposition(RandomField):
     """
-    Matrix decomposition method for generating random fields.
+    Matrix decomposition method for generating random fields
 
     Parameters
     ----------
     C : ndarray
-        Covariance matrix.
+        Covariance matrix
 
     probability_distribution : callable
-        Function defining the probability distribution of the random field.
+        Function defining the probability distribution of the random field
 
     Methods
     -------
     decompose_covariance_matrix()
-        Computes eigenvalues and eigenvectors of the covariance matrix.
+        Computes eigenvalues and eigenvectors of the covariance matrix
 
     compute_lower_triangular_matrix()
-        Computes the lower triangular matrix for sampling.
+        Computes the lower triangular matrix for sampling
 
     generate_sample_normal()
-        Generates a standard normal random field sample.
+        Generates a standard normal random field sample
 
     generate_sample()
-        Generates a sample with the user-defined probability distribution.
+        Generates a sample with the user-defined probability distribution
 
     generate_samples(n_samples)
-        Generates multiple samples of the random field.
+        Generates multiple samples of the random field
     """
 
     def __init__(self, C, probability_distribution):

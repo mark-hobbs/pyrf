@@ -27,7 +27,6 @@ class CovarianceFunction:
         Visualise the covariance matrix as an image
         """
         plt.imshow(C, cmap="viridis")
-        plt.title("Covariance Matrix")
 
     def build_correlation_matrix(self, x):
         """
