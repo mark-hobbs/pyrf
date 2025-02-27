@@ -1,8 +1,8 @@
 # pyrf
 
-A simple pure-Python package for generating spatially correlated random fields.
+A lightweight Python package with minimal dependencies for generating spatially correlated random fields.
 
-![](docs/figs/random-field.png)
+<a href="https://colab.research.google.com/github/mark-hobbs/pyrf/blob/main/examples/weibull.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 
 
 ## Getting started
 
@@ -20,3 +20,7 @@ $ cd pyrf/
 $ pipenv install --dev
 $ pipenv shell
 ```
+
+## Spatially correlated random field
+
+![](docs/figs/random-field.png)
